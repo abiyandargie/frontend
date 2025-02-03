@@ -9,11 +9,14 @@ const Table = () => {
 
   const fetchLeaves = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/leave`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get(
+        `https://employee-b-end.vercel.app/api/leave`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
       console.log(response.data); // Log API response to check structure
 
@@ -27,7 +30,8 @@ const Table = () => {
           leaveType: leave.leaveType,
           department: leave.employeeId?.department?.dep_name || "N/A", // Safe check for department
           days: Math.ceil(
-            (new Date(leave.endDate) - new Date(leave.startDate)) / (1000 * 60 * 60 * 24)
+            (new Date(leave.endDate) - new Date(leave.startDate)) /
+              (1000 * 60 * 60 * 24)
           ),
           status: leave.status,
           action: <LeaveButtons Id={leave.employeeId?._id} />,

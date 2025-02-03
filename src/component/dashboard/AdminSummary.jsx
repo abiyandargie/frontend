@@ -26,7 +26,7 @@ const AdminSummary = () => {
 
       try {
         const response = await axios.get(
-          "http://localhost:4000/api/dashboard/summary",
+          "https://employee-b-end.vercel.app/api/dashboard/summary",
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -5,11 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Edit = () => {
   const [employee, setEmployee] = useState({
-    name: '',
-    maritalStatus: '',
-    designation: '',
+    name: "",
+    maritalStatus: "",
+    designation: "",
     salary: 0,
-    department: ''
+    department: "",
   });
   const navigate = useNavigate(); // Initialize navigate hook
   const [departments, setDepartments] = useState([]);
@@ -23,48 +23,54 @@ const Edit = () => {
     };
     getDepartments();
   }, []);
-useEffect(() => {
+  useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/employee/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-  
+        const response = await axios.get(
+          `https://employee-b-end.vercel.app/api/employee/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
         // Log the entire response to check its structure
         console.log("Employee Response:", response.data);
-  
+
         if (response.data.success) {
           const employee = response.data.employee;
-  
+
           // Log the employee object to check its structure
           console.log("Employee Object:", employee);
-  
+
           // Check if the 'userId' field exists and set the employee state accordingly
           if (employee && employee.userId) {
             setEmployee({
-              name: employee.userId.name || '', // Access the name from userId
-              maritalStatus: employee.maritalStatus || '',
-              designation: employee.designation || '',
+              name: employee.userId.name || "", // Access the name from userId
+              maritalStatus: employee.maritalStatus || "",
+              designation: employee.designation || "",
               salary: employee.salary || 0,
-              department: employee.department?._id || '', // Default empty if department is not set
+              department: employee.department?._id || "", // Default empty if department is not set
             });
           } else {
             alert("Employee name is missing in the data.");
           }
         } else {
-          alert('Failed to fetch employee details');
+          alert("Failed to fetch employee details");
         }
       } catch (error) {
-        console.error('Error:', error);
-        alert(error.response?.data?.error || 'An error occurred while fetching employee details');
+        console.error("Error:", error);
+        alert(
+          error.response?.data?.error ||
+            "An error occurred while fetching employee details"
+        );
       }
     };
-  
+
     fetchEmployee();
   }, [id]);
-  
+
   // Handle changes in form fields
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,7 +86,7 @@ useEffect(() => {
 
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/employee/${id}`,
+        `https://employee-b-end.vercel.app/api/employee/${id}`,
         employee, // Send the updated employee object directly
         {
           headers: {
@@ -95,7 +101,10 @@ useEffect(() => {
       }
     } catch (error) {
       console.error("Error:", error);
-      alert(error.response?.data?.error || "An error occurred while updating employee details");
+      alert(
+        error.response?.data?.error ||
+          "An error occurred while updating employee details"
+      );
     }
   };
 
@@ -108,7 +117,10 @@ useEffect(() => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Name */}
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Name
                 </label>
                 <input
@@ -124,7 +136,10 @@ useEffect(() => {
 
               {/* Marital Status */}
               <div>
-                <label htmlFor="maritalStatus" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="maritalStatus"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Marital Status
                 </label>
                 <select
@@ -142,7 +157,10 @@ useEffect(() => {
 
               {/* Designation */}
               <div>
-                <label htmlFor="designation" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="designation"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Designation
                 </label>
                 <input
@@ -158,7 +176,10 @@ useEffect(() => {
 
               {/* Salary */}
               <div>
-                <label htmlFor="salary" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="salary"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Salary
                 </label>
                 <input
@@ -174,7 +195,10 @@ useEffect(() => {
 
               {/* Department */}
               <div className="col-span-2">
-                <label htmlFor="department" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="department"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Department
                 </label>
                 <select

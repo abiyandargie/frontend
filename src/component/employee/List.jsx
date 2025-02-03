@@ -14,11 +14,14 @@ const List = () => {
     const fetchEmployees = async () => {
       setEmpLoading(true);
       try {
-        const response = await axios.get("http://localhost:4000/api/employee", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await axios.get(
+          "https://employee-b-end.vercel.app/api/employee",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
         // Log the full response to check the structure
         console.log(response.data);
@@ -36,7 +39,7 @@ const List = () => {
               <img
                 width={40}
                 className="rounded-full"
-                src={`http://localhost:4000/${
+                src={`https://employee-b-end.vercel.app/${
                   emp.userId.profileImage || "default-avatar.jpg"
                 }`}
                 alt="Profile"

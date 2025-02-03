@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
-import { useAuth } from '../../context/authContext';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useAuth } from "../../context/authContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Add = () => {
   const { user } = useAuth();
   const [leave, setLeave] = useState({
-  userId: user._id,
-  leaveType: '',
-  startDate: '',
-  endDate: '',
-  reason: '',   
-  status: 'Pending',
-  appliedAt: new Date(),
-});
-
+    userId: user._id,
+    leaveType: "",
+    startDate: "",
+    endDate: "",
+    reason: "",
+    status: "Pending",
+    appliedAt: new Date(),
+  });
 
   const navigate = useNavigate();
 
@@ -30,24 +29,24 @@ const Add = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const token = localStorage.getItem("token");
       if (!token) {
         alert("No token found. Please log in again.");
         return;
       }
-  
+
       console.log("Submitting leave request:", leave); // Log the leave data
-  
+
       const response = await axios.post(
-        "http://localhost:4000/api/leave/add",
+        "https://employee-b-end.vercel.app/api/leave/add",
         leave,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-  
+
       if (response.data.success) {
         navigate(`/employee-dashboard/leaves/${user._id}`);
       } else {
@@ -55,7 +54,7 @@ const Add = () => {
       }
     } catch (error) {
       console.error("Error submitting leave request:", error); // Log the full error
-  
+
       // Handle different types of errors
       if (error.response) {
         // Server responded with a status other than 2xx
@@ -66,7 +65,9 @@ const Add = () => {
       } else if (error.request) {
         // No response received (e.g., network error)
         console.error("No response received:", error.request);
-        alert("No response received from server. Please check your connection.");
+        alert(
+          "No response received from server. Please check your connection."
+        );
       } else {
         // Error setting up the request
         console.error("Error setting up request:", error.message);
@@ -74,7 +75,7 @@ const Add = () => {
       }
     }
   };
-  
+
   return (
     <div className="max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md">
       <h2 className="text-2xl font-bold mb-6">Request for Leave</h2>
@@ -82,7 +83,10 @@ const Add = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Leave Type */}
           <div>
-            <label htmlFor="leaveType" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="leaveType"
+              className="block text-sm font-medium text-gray-700"
+            >
               Leave Type
             </label>
             <select
@@ -95,14 +99,18 @@ const Add = () => {
             >
               <option value="">Select Leave Type</option>
               <option value="Sick Leave">Sick Leave</option>
-              <option value="Casual Leave">Casual Leave</option> {/* Fixed spelling */}
+              <option value="Casual Leave">Casual Leave</option>{" "}
+              {/* Fixed spelling */}
               <option value="Annual Leave">Annual Leave</option>
             </select>
           </div>
 
           {/* Start Date */}
           <div>
-            <label htmlFor="startDate" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="startDate"
+              className="block text-sm font-medium text-gray-700"
+            >
               From Date
             </label>
             <input
@@ -118,7 +126,10 @@ const Add = () => {
 
           {/* End Date */}
           <div>
-            <label htmlFor="endDate" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="endDate"
+              className="block text-sm font-medium text-gray-700"
+            >
               To Date
             </label>
             <input
@@ -135,7 +146,10 @@ const Add = () => {
 
         {/* Description */}
         <div className="mt-4">
-          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-gray-700"
+          >
             Description
           </label>
           <textarea
@@ -145,7 +159,6 @@ const Add = () => {
             onChange={handleChange}
             placeholder="Reason for leave"
             className="mt-1 p-2 block w-full border border-gray-300 rounded-md h-24"
-             
           />
         </div>
 

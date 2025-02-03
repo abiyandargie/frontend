@@ -65,13 +65,12 @@ const Add = () => {
     }));
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting salary data:", salary); // Log the data before sending it
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/salary/add`,
+        `https://employee-b-end.vercel.app/api/salary/add`,
         salary,
         {
           headers: {

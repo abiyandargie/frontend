@@ -7,7 +7,7 @@ const Detail = () => {
   const { id } = useParams(); // Get Leave ID from URL
   const [leave, setLeave] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLeave = async () => {
@@ -15,7 +15,7 @@ const Detail = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/leave/detail/${id}`,
+          `https://employee-b-end.vercel.app/api/leave/detail/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -46,10 +46,10 @@ const Detail = () => {
   }, [id]);
 
   const changeStatus = async (id, status) => {
-
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/leave/${id}`,{status},
+        `https://employee-b-end.vercel.app/api/leave/${id}`,
+        { status },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -60,14 +60,12 @@ const Detail = () => {
       console.log("API Response:", response.data); // ✅ Check the API response here
       console.log("API Response:", response.data);
       if (response.data.success) {
-        navigate('/admin-dashboard/leaves')
-      }  
+        navigate("/admin-dashboard/leaves");
+      }
     } catch (error) {
       alert(error.response.data.error);
-      
     }
-      
-  }
+  };
 
   if (loading) return <div className="text-center mt-10">Loading...</div>;
   if (!leave)
@@ -87,7 +85,7 @@ const Detail = () => {
           <img
             src={
               leave.employeeId?.userId?.profileImage
-                ? `http://localhost:4000/${leave.employeeId.userId.profileImage}`
+                ? `https://employee-b-end.vercel.app/${leave.employeeId.userId.profileImage}`
                 : "/default-avatar.png"
             }
             alt="Profile"
@@ -148,16 +146,26 @@ const Detail = () => {
 
           <div className="flex space-x-3 mb-3">
             <p className="text-lg font-bold">
-              {leave.status === 'Pending' ? 'Action':'Status'}</p>
-            {leave.status === 'Pending' ? (
-              <div  className="felex space-x-2"> 
-                <button className="px-2 text-gray-950 py-0.5 rounded-md bg-teal-400 hover:bg-teal-600" onClick={() => changeStatus(leave._id, 'Approved')}>Approve</button>
-                <button className="px-2 text-gray-950 rounded-md py-0.5 bg-red-400  hover:bg-red-600" onClick={() => changeStatus(leave._id, 'Rejected')}>Reject</button>
+              {leave.status === "Pending" ? "Action" : "Status"}
+            </p>
+            {leave.status === "Pending" ? (
+              <div className="felex space-x-2">
+                <button
+                  className="px-2 text-gray-950 py-0.5 rounded-md bg-teal-400 hover:bg-teal-600"
+                  onClick={() => changeStatus(leave._id, "Approved")}
+                >
+                  Approve
+                </button>
+                <button
+                  className="px-2 text-gray-950 rounded-md py-0.5 bg-red-400  hover:bg-red-600"
+                  onClick={() => changeStatus(leave._id, "Rejected")}
+                >
+                  Reject
+                </button>
               </div>
-            ) : 
-            <p className="text-lg font-medium">{leave.status || "N/A"}</p>
-          }
-           
+            ) : (
+              <p className="text-lg font-medium">{leave.status || "N/A"}</p>
+            )}
           </div>
         </div>
       </div>

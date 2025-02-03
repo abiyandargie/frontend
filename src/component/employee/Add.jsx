@@ -27,8 +27,8 @@ const Add = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Corrected formData to FormData (capital 'F') 
-    const formDataObj = new FormData(); 
+    // Corrected formData to FormData (capital 'F')
+    const formDataObj = new FormData();
     // Append all form fields to FormData object
     Object.keys(formData).forEach((key) => {
       formDataObj.append(key, formData[key]);
@@ -36,7 +36,7 @@ const Add = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/employee/add",
+        "https://employee-b-end.vercel.app/api/employee/add",
         formDataObj,
         {
           headers: {
@@ -46,7 +46,7 @@ const Add = () => {
         }
       );
       if (response.data.success) {
-        navigate("/admin-dashboard/employees");  
+        navigate("/admin-dashboard/employees");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -63,7 +63,10 @@ const Add = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Input fields */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
               Name
             </label>
             <input
@@ -89,7 +92,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="employeeId" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="employeeId"
+              className="block text-sm font-medium text-gray-700"
+            >
               Employee Id
             </label>
             <input
@@ -103,7 +109,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="dob" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="dob"
+              className="block text-sm font-medium text-gray-700"
+            >
               Date of birth
             </label>
             <input
@@ -116,7 +125,9 @@ const Add = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Gender</label>
+            <label className="block text-sm font-medium text-gray-700">
+              Gender
+            </label>
             <select
               name="gender"
               onChange={handleChange}
@@ -131,7 +142,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="maritalStatus" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="maritalStatus"
+              className="block text-sm font-medium text-gray-700"
+            >
               Marital Status
             </label>
             <select
@@ -147,7 +161,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="designation" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="designation"
+              className="block text-sm font-medium text-gray-700"
+            >
               Designation
             </label>
             <input
@@ -161,7 +178,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="department" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="department"
+              className="block text-sm font-medium text-gray-700"
+            >
               Department
             </label>
             <select
@@ -180,7 +200,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="salary" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="salary"
+              className="block text-sm font-medium text-gray-700"
+            >
               Salary
             </label>
             <input
@@ -194,7 +217,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -208,7 +234,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="role"
+              className="block text-sm font-medium text-gray-700"
+            >
               Select Role
             </label>
             <select
@@ -224,7 +253,10 @@ const Add = () => {
           </div>
 
           <div>
-            <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="image"
+              className="block text-sm font-medium text-gray-700"
+            >
               Upload Image
             </label>
             <input

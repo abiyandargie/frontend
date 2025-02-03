@@ -10,13 +10,13 @@ const DepartmentList = () => {
   const [filteredDepartments, setFilteredDepartments] = useState([]);
 
   const onDepartmentDelete = () => {
-     fetchDepartments();
+    fetchDepartments();
   };
   const fetchDepartments = async () => {
     setDepLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/department",
+        "https://employee-b-end.vercel.app/api/department",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

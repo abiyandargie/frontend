@@ -6,7 +6,7 @@ import axios from "axios";
 const List = () => {
   const [leaves, setLeaves] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   const { user } = useAuth(); // Get logged-in user info
   const { id } = useParams(); // Employee ID from URL (for admin view)
 
@@ -21,7 +21,7 @@ const List = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/leave/${fetchId}`,
+        `https://employee-b-end.vercel.app/api/leave/${fetchId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,22 +81,30 @@ const List = () => {
         <tbody>
           {loading ? (
             <tr>
-              <td colSpan="6" className="text-center py-4">Loading...</td>
+              <td colSpan="6" className="text-center py-4">
+                Loading...
+              </td>
             </tr>
           ) : leaves.length > 0 ? (
             leaves.map((leave, index) => (
               <tr key={leave._id}>
                 <td className="px-6 py-3">{index + 1}</td>
                 <td className="px-6 py-3">{leave.leaveType}</td>
-                <td className="px-6 py-3">{new Date(leave.startDate).toLocaleDateString()}</td>
-                <td className="px-6 py-3">{new Date(leave.endDate).toLocaleDateString()}</td>
+                <td className="px-6 py-3">
+                  {new Date(leave.startDate).toLocaleDateString()}
+                </td>
+                <td className="px-6 py-3">
+                  {new Date(leave.endDate).toLocaleDateString()}
+                </td>
                 <td className="px-6 py-3">{leave.reason}</td>
                 <td className="px-6 py-3">{leave.status}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="6" className="text-center py-4">No leaves found.</td>
+              <td colSpan="6" className="text-center py-4">
+                No leaves found.
+              </td>
             </tr>
           )}
         </tbody>
