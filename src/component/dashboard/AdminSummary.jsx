@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   FaBuilding,
   FaCheckCircle,
@@ -8,7 +9,7 @@ import {
   FaRegTimesCircle,
   FaUsers,
 } from "react-icons/fa";
-import { SummaryCard } from "./summaryCard";
+import { SummaryCard } from "./SummaryCard.jsx";
 import axios from "axios";
 
 const AdminSummary = () => {
@@ -24,11 +25,14 @@ const AdminSummary = () => {
       }
 
       try {
-        const response = await axios.get("http://localhost:4000/api/dashboard/summary", {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = await axios.get(
+          "http://localhost:4000/api/dashboard/summary",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
 
         setSummary(response.data);
       } catch (error) {
